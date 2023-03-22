@@ -10,6 +10,7 @@ const Header = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
   const logOutHandler = () => {
     dispatch(authActions.logOut());
+    localStorage.removeItem("token");
     navigate("/login");
   };
   return (
@@ -17,7 +18,7 @@ const Header = () => {
       <header className={classes.header}>
         <HeaderCartButton />
         <Link to="/">
-          <h1>Assignment 6</h1>
+          <h1>ProdutsVilla</h1>
         </Link>
         {!isAuthenticated ? (
           <div className={classes.headerBtn}>

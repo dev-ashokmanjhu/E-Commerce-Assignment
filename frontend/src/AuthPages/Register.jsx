@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store/authSlice";
+import axios from "axios";
 
 const Register = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const formik = useFormik({
@@ -38,9 +40,27 @@ const Register = () => {
       email: Yup.string().email("Invalid email address").required("Required"),
     }),
     onSubmit: (values, actios) => {
-      actios.resetForm();
-      dispatch(authActions.logIn());
-      navigate("/");
+      setIsLoading(true);
+      const data = {
+        firstName: values.Name,
+        lastName: values.Name,
+        email: values.email,
+        password: values.password,
+      };
+      const res = axios
+        .post("https://mern-login-signup-backend.vercel.app/register", data)
+        .then((res) => {
+          alert("Register Success");
+          navigate("/");
+          dispatch(authActions.logIn());
+          localStorage.setItem("token", res.data.token);
+          actios.resetForm();
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+          setIsLoading(false);
+        });
     },
   });
   return (
@@ -109,7 +129,7 @@ const Register = () => {
           </div>
           <div>
             <button className="loginBtn" type="submit">
-              Register
+              {isLoading ? "Register..." : "Register"}
             </button>
           </div>
           <div className="signUpText">

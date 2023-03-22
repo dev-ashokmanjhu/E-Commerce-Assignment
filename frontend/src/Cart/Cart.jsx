@@ -32,16 +32,33 @@ const Cart = (props) => {
   const resetItemsHandler = () => {
     dispatch(cartActions.cartReset());
   };
-  const orderHandler = () => {
+  const orderHandler = async () => {
     if (!isAuthenticated) {
       alert("Please Login/Register First");
       navigate("/login");
-    } else {
-      alert("Ordered Successfully");
-      dispatch(cartActions.cartReset());
-      navigate("/");
     }
+    await fetch("https://shopping-cart-stripe-context.vercel.app/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ items: cartRedux.items }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        if (response.url) {
+          window.location.assign(response.url); // Forwarding user to Stripe
+        }
+        // setIsCheckout(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        // setIsCheckout(false);
+      });
   };
+
   // get items from context and map over them to show in cart and cartItem components
   const cartItems = (
     <ul className={classes["cart-items"]}>

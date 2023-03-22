@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store/authSlice";
-
+import axios from "axios";
 const Login = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const formik = useFormik({
@@ -15,16 +16,25 @@ const Login = () => {
       email: "",
     },
     validationSchema: Yup.object({
-      password: Yup.string()
-        .min(6, "Must be greater than 6")
-        .max(15, "Must be 15 characters or less")
-        .required("Required"),
+      password: Yup.string(),
       email: Yup.string().email("Invalid email address").required("Required"),
     }),
     onSubmit: (values, actios) => {
-      actios.resetForm();
-      dispatch(authActions.logIn());
-      navigate("/");
+      setIsLoading(true);
+      const res = axios
+        .post("https://mern-login-signup-backend.vercel.app/login", values)
+        .then((res) => {
+          alert("Login Success");
+          localStorage.setItem("token", res.data.token);
+          dispatch(authActions.logIn());
+          navigate("/");
+          actios.resetForm();
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+          setIsLoading(false);
+        });
     },
   });
   return (
@@ -71,7 +81,7 @@ const Login = () => {
           </div>
           <div>
             <button className="loginBtn" type="submit">
-              Log In
+              {isLoading ? "Log In..." : "Log In"}
             </button>
           </div>
           <div className="signUpText">
