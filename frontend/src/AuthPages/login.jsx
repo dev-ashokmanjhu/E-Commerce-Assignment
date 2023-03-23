@@ -6,10 +6,12 @@ import "./Login.css";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store/authSlice";
 import axios from "axios";
+import { msg } from "../Utils/alert";
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       password: "",
@@ -24,16 +26,18 @@ const Login = () => {
       const res = axios
         .post("https://mern-login-signup-backend.vercel.app/login", values)
         .then((res) => {
-          alert("Login Success");
           localStorage.setItem("token", res.data.token);
+          msg("Login Successfully");
           dispatch(authActions.logIn());
-          navigate("/");
           actios.resetForm();
           setIsLoading(false);
+          navigate("/");
         })
         .catch((err) => {
-          alert(err.response.data.message);
+          console.log(err);
+          msg(err?.response?.data?.message);
           setIsLoading(false);
+          return;
         });
     },
   });

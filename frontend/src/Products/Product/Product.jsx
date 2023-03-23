@@ -2,6 +2,7 @@ import ProductForm from "./ProductForm";
 import classes from "./Product.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../store/cartSlice";
+import { msg } from "../../Utils/alert";
 
 const Product = (props) => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const Product = (props) => {
         image: props.img,
       })
     );
+    msg("Added Item to Cart");
   };
 
   return (

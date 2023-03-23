@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store/authSlice";
 import axios from "axios";
+import { msg } from "../Utils/alert";
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -50,12 +51,12 @@ const Register = () => {
       const res = axios
         .post("https://mern-login-signup-backend.vercel.app/register", data)
         .then((res) => {
-          alert("Register Success");
-          navigate("/");
           dispatch(authActions.logIn());
           localStorage.setItem("token", res.data.token);
+          msg("Register Successfully");
           actios.resetForm();
           setIsLoading(false);
+          navigate("/");
         })
         .catch((err) => {
           alert(err.response.data.message);

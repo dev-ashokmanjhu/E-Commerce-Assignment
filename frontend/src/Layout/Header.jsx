@@ -3,6 +3,7 @@ import classes from "./Header.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../store/authSlice";
+import { msg } from "../Utils/alert";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ const Header = () => {
   const logOutHandler = () => {
     dispatch(authActions.logOut());
     localStorage.removeItem("token");
+    msg("Logout Successfully");
     navigate("/login");
   };
   return (

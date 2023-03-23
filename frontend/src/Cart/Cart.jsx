@@ -3,6 +3,7 @@ import classes from "./Cart.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../store/cartSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { msg } from "../Utils/alert";
 
 const Cart = (props) => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const Cart = (props) => {
     dispatch(cartActions.removeFromCart(id));
   };
   const removeCartItemHandler = (id) => {
+    msg("Removed item From Cart");
     dispatch(cartActions.removeCartItem(id));
   };
   // function for adding Item which get item as argument and redirect to addItem context action and only increase 1 quantity
@@ -31,10 +33,11 @@ const Cart = (props) => {
   // function for reset Item which set state to defaultstate
   const resetItemsHandler = () => {
     dispatch(cartActions.cartReset());
+    msg("Reset Cart Successfully");
   };
   const orderHandler = async () => {
     if (!isAuthenticated) {
-      alert("Please Login/Register First");
+      msg("Please Login/Register First");
       navigate("/login");
       return;
     }
