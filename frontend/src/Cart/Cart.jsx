@@ -36,6 +36,7 @@ const Cart = (props) => {
     if (!isAuthenticated) {
       alert("Please Login/Register First");
       navigate("/login");
+      return;
     }
     await fetch("https://shopping-cart-stripe-context.vercel.app/checkout", {
       method: "POST",
