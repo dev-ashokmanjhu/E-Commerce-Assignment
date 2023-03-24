@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { authActions } from "./store/authSlice";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PaymentSuccess from "./UI/PaymentSuccess";
 
 const Root = () => {
   const dispatch = useDispatch();
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/paymentsuccess",
+        element: <PaymentSuccess />,
       },
     ],
   },

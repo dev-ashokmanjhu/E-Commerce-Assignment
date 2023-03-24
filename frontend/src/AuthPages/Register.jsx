@@ -43,14 +43,14 @@ const Register = () => {
     onSubmit: (values, actios) => {
       setIsLoading(true);
       const data = {
-        firstName: values.Name,
-        lastName: values.Name,
+        name: values.Name,
         email: values.email,
         password: values.password,
       };
       const res = axios
-        .post("https://mern-login-signup-backend.vercel.app/register", data)
+        .post("http://localhost:4000/register", data)
         .then((res) => {
+          console.log(res);
           dispatch(authActions.logIn());
           localStorage.setItem("token", res.data.token);
           msg("Register Successfully");
@@ -59,7 +59,8 @@ const Register = () => {
           navigate("/");
         })
         .catch((err) => {
-          msg(err?.response?.data?.message);
+          console.log(err);
+          msg(err?.response?.data);
           setIsLoading(false);
         });
     },

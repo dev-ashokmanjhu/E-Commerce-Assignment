@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../store/cartSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { msg } from "../Utils/alert";
+import { useState } from "react";
 
 const Cart = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isCheckout, setIsCheckout] = useState(false);
   const cartRedux = useSelector((state) => state.cart);
   const { isAuthenticated } = useSelector((state) => state.auth);
   // making total amount to last two decimal numbers
@@ -36,6 +38,7 @@ const Cart = (props) => {
     msg("Reset Cart Successfully");
   };
   const orderHandler = async () => {
+    setIsCheckout(true);
     if (!isAuthenticated) {
       msg("Please Login/Register First");
       navigate("/login");
@@ -55,11 +58,11 @@ const Cart = (props) => {
         if (response.url) {
           window.location.assign(response.url); // Forwarding user to Stripe
         }
-        // setIsCheckout(false);
+        setIsCheckout(false);
       })
       .catch((err) => {
         console.log(err);
-        // setIsCheckout(false);
+        setIsCheckout(false);
       });
   };
 
@@ -115,7 +118,7 @@ const Cart = (props) => {
           )}
           {hasItems && (
             <button className={classes.button} onClick={orderHandler}>
-              Order
+              {isCheckout ? "Order..." : "Order"}
             </button>
           )}
         </div>

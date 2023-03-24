@@ -1,18 +1,22 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
+const cors = require("cors");
 mongoose.set("strictQuery", true);
+dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(cors());
+
 // database connect
 mongoose
-  .connect(
-    "mongodb+srv://ashokmanjhu:ashokmanjhu@cluster0.m8gxypg.mongodb.net/ProductVilla?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then((res) => console.log("MOngodb connected Successfully"))
   .catch((err) => console.log(err));
 // Mongodb schema
@@ -29,19 +33,45 @@ app.get("/", (req, res) => {
 });
 app.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
   try {
     const user = new User({
       name,
       email,
-      password,
+      password: hashedPassword,
     });
     await user.save();
-    console.log(req.body);
-    res.send(req.body);
+    const token = jwt.sign(
+      { userId: user._id },
+      "374jdshsdjhtuwifskdjhweiutfhwr"
+    );
+    res.status(201).send({ token });
   } catch (error) {
-    console.log(error);
+    res.status(401).send(error.message);
+  }
+});
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new Error("Invalid Creditanals");
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (isMatch) {
+      const token = jwt.sign(
+        { userId: user._id },
+        "374jdshsdjhtuwifskdjhweiutfhwr"
+      );
+      res.status(201).send({ token });
+    } else {
+      throw new Error("Invalid Creditanals");
+    }
+  } catch (error) {
+    res.status(401).send(error.message);
   }
 });
 app.listen("4000", () => {
-  console.log("server is Running");
+  console.log("Server is Running");
 });

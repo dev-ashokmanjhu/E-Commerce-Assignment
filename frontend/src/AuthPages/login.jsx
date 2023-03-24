@@ -24,8 +24,9 @@ const Login = () => {
     onSubmit: (values, actios) => {
       setIsLoading(true);
       const res = axios
-        .post("https://mern-login-signup-backend.vercel.app/login", values)
+        .post("http://localhost:4000/login", values)
         .then((res) => {
+          console.log(res);
           localStorage.setItem("token", res.data.token);
           msg("Login Successfully");
           dispatch(authActions.logIn());
@@ -35,7 +36,8 @@ const Login = () => {
         })
         .catch((err) => {
           console.log(err);
-          msg(err?.response?.data?.message);
+          // msg("err");
+          msg(err?.response?.data);
           setIsLoading(false);
           return;
         });

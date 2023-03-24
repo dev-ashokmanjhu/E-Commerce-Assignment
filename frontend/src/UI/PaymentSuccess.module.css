@@ -1,0 +1,47 @@
+.container {
+  text-align: center;
+  padding: 40px 0;
+}
+.heading {
+  color: #88b04b;
+  font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+  font-weight: 900;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+.paragraph {
+  color: #d3d3d3;
+  font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  margin: 0;
+}
+i {
+  color: #9abc66;
+  font-size: 100px;
+  line-height: 200px;
+  margin-left: -15px;
+}
+.card {
+  background: rgb(26, 24, 24);
+  padding: 60px;
+  border-radius: 4px;
+  box-shadow: 0 2px 3px #040405;
+  display: inline-block;
+  margin: 0 auto;
+}
+.btn {
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 20px;
+  background-color: #007cb6;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.btn:hover {
+  background-color: transparent;
+  color: #007cb6;
+  border: 1px solid #007cb6;
+}
