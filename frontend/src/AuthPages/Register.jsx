@@ -59,7 +59,7 @@ const Register = () => {
           navigate("/");
         })
         .catch((err) => {
-          alert(err.response.data.message);
+          msg(err?.response?.data?.message);
           setIsLoading(false);
         });
     },

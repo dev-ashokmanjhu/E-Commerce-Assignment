@@ -8,6 +8,9 @@ const Product = (props) => {
   const dispatch = useDispatch();
   // getting data from redux store
   const cartRedux = useSelector((state) => state.cart);
+  const numberOfCartItems = cartRedux.items.reduce((curNumber, item) => {
+    return curNumber + item.quantity;
+  }, 0);
   // fixed price for two decimal numbers
   const price = `$${props.price.toFixed(2)}`;
   // function for adding item to redux store
@@ -26,7 +29,11 @@ const Product = (props) => {
         image: props.img,
       })
     );
-    msg("Added Item to Cart");
+    if (!(numberOfCartItems + quantity > 20)) {
+      msg(`Add ${quantity} Item to Cart`);
+    } else {
+      msg("Cart Limit Exceed");
+    }
   };
 
   return (
