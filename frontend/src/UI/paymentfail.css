@@ -1,0 +1,32 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,700,600);
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  padding: 20px;
+  color: white;
+}
+
+.paymentfailImg {
+  width: 40%;
+  height: 100%;
+  box-shadow: none;
+}
+.payment-btn {
+  cursor: pointer;
+  font: inherit;
+  border: none;
+  background-color: #007cb6;
+  color: white;
+  padding: 0.75rem 3rem;
+  margin-top: 10px;
+  border-radius: 15px;
+  font-weight: bold;
+  height: 55px;
+}
+.payment-btn:hover {
+  background-color: transparent;
+  border: 1px solid #007cb6;
+}
