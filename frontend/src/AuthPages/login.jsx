@@ -24,7 +24,7 @@ const Login = () => {
     onSubmit: (values, actios) => {
       setIsLoading(true);
       const res = axios
-        .post("http://localhost:4000/login", values)
+        .post("https://e-commerce-backend-two-neon.vercel.app/login", values)
         .then((res) => {
           console.log(res);
           localStorage.setItem("token", res.data.token);

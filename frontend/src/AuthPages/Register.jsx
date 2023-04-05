@@ -48,7 +48,7 @@ const Register = () => {
         password: values.password,
       };
       const res = axios
-        .post("http://localhost:4000/register", data)
+        .post("https://e-commerce-backend-two-neon.vercel.app/register", data)
         .then((res) => {
           console.log(res);
           dispatch(authActions.logIn());
