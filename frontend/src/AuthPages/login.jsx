@@ -27,7 +27,6 @@ const Login = () => {
       const res = axios
         .post("https://e-commerce-backend-two-neon.vercel.app/login", values)
         .then((res) => {
-          console.log(res);
           localStorage.setItem("token", res.data.token);
           msg("Login Successfully");
           dispatch(authActions.logIn());
@@ -36,8 +35,6 @@ const Login = () => {
           navigate("/");
         })
         .catch((err) => {
-          console.log(err);
-          // msg("err");
           msg(err?.response?.data);
           setIsLoading(false);
           return;
