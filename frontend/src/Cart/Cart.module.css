@@ -37,26 +37,27 @@
 
 .actions {
   text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .actions button {
+  color: white;
   font: inherit;
   cursor: pointer;
-  background-color: transparent;
+  background-color: #007cb6;
   border: 1px solid #007cb6;
   padding: 0.5rem 2rem;
   border-radius: 10px;
   margin-left: 1rem;
+  min-width: 108.5px;
+  max-height: 40.8px;
 }
 
 .actions button:hover,
 .actions button:active {
-  background-color: #007cb6;
-  border-color: #007cb6;
-  color: white;
-}
-
-.actions .button--alt {
+  background-color: transparent;
   color: #007cb6;
 }
 
