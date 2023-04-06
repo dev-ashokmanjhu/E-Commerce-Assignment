@@ -16,3 +16,48 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+.spinner_9y7u {
+  animation: spinner_fUkk 2.4s linear infinite;
+  animation-delay: -2.4s;
+  fill: #08e800;
+}
+.spinner_DF2s {
+  animation-delay: -1.6s;
+  fill: black;
+}
+.spinner_q27e {
+  animation-delay: -0.8s;
+  fill: #ff0404;
+}
+
+@keyframes spinner_fUkk {
+  8.33% {
+    x: 13px;
+    y: 1px;
+  }
+  25% {
+    x: 13px;
+    y: 1px;
+  }
+  33.3% {
+    x: 13px;
+    y: 13px;
+  }
+  50% {
+    x: 13px;
+    y: 13px;
+  }
+  58.33% {
+    x: 1px;
+    y: 13px;
+  }
+  75% {
+    x: 1px;
+    y: 13px;
+  }
+  83.33% {
+    x: 1px;
+    y: 1px;
+  }
+}
