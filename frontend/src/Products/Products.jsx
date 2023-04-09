@@ -55,7 +55,7 @@ const Products = () => {
   if (isLoding) {
     return <Loader />;
   }
-  console.log(products[0].thumbnail);
+
   return (
     <section className={classes.products}>
       <CarsoulSlider
