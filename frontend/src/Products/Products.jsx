@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Pagination from "./Pagination";
 import Loader from "../UI/Loader";
+import CarsoulSlider from "../Layout/CarsoulSlider";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -54,8 +55,13 @@ const Products = () => {
   if (isLoding) {
     return <Loader />;
   }
+  console.log(products[0].thumbnail);
   return (
     <section className={classes.products}>
+      <CarsoulSlider
+        product1="https://images.hindustantimes.com/tech/img/2021/06/10/960x540/image_-_2021-06-10T151159.571_1623318123184_1623318130362.jpg"
+        product2="https://www.91-cdn.com/hub/wp-content/uploads/2022/11/android-phones-antutu-oct22.png"
+      />
       <ul>{productList}</ul>
       <Pagination
         productsPerPage={productsPerPage}
